@@ -4,7 +4,7 @@ void iniciarJogo();
 
 void imprimirTabuleiro(char tabuleiro[][3]);
 
-void atualizarTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]);
+void preencherTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]);
 
 void realizarJogada(char tabuleiro[][3]);
 
@@ -25,3 +25,5 @@ int max(int a, int b);
 void trocarJogador(int *jogador);
 
 int verificarEmpate(char tabuleiro[][3]);
+
+int verificarPosicaoVazia(char tabuleiro[][3], int i, int j);

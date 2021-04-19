@@ -54,7 +54,7 @@ void iniciarJogo(){
 
 void imprimirTabuleiro(char tabuleiro[][3]){
 
-	printf("\n\t  \033[0;31mJOGO DA VELHA\n\n\033[0;35m"
+	printf("\n\t  \033[0;31mJOGO DA VELHA\n\n\033[0;32m"
 		  "Minimax tree BOT: X\nVoce: O\n\n\t\033[0;33m"
 		  "  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m   \n"
 		  "\t-----|-----|-----\n\t"
@@ -67,7 +67,7 @@ void imprimirTabuleiro(char tabuleiro[][3]){
 	
 }
 
-void atualizarTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]){
+void preencherTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]){
 
 	if(jogadorVez == 1)
 		tabuleiro[i][j] = 'X';
@@ -92,31 +92,31 @@ void realizarJogada(char tabuleiro[][3]){
 	else {
 
 		if(opcao == 1)
-			atualizarTabuleiro(0, 0, 2, tabuleiro);
+			preencherTabuleiro(0, 0, 2, tabuleiro);
 	
 		else if(opcao == 2)
-			atualizarTabuleiro(0, 1, 2, tabuleiro);
+			preencherTabuleiro(0, 1, 2, tabuleiro);
 
 		else if(opcao == 3)
-			atualizarTabuleiro(0, 2, 2, tabuleiro);
+			preencherTabuleiro(0, 2, 2, tabuleiro);
 
 		else if(opcao == 4)
-			atualizarTabuleiro(1, 0, 2, tabuleiro);
+			preencherTabuleiro(1, 0, 2, tabuleiro);
 
 		else if(opcao == 5)
-			atualizarTabuleiro(1, 1, 2, tabuleiro);
+			preencherTabuleiro(1, 1, 2, tabuleiro);
 
 		else if(opcao == 6)
-			atualizarTabuleiro(1, 2, 2, tabuleiro);
+			preencherTabuleiro(1, 2, 2, tabuleiro);
 
 		else if(opcao == 7)
-			atualizarTabuleiro(2, 0, 2, tabuleiro);
+			preencherTabuleiro(2, 0, 2, tabuleiro);
 
 		else if(opcao == 8)
-			atualizarTabuleiro(2, 1, 2, tabuleiro);
+			preencherTabuleiro(2, 1, 2, tabuleiro);
 
 		else if(opcao == 9)
-			atualizarTabuleiro(2, 2, 2, tabuleiro);
+			preencherTabuleiro(2, 2, 2, tabuleiro);
 
 	}
 
@@ -191,10 +191,10 @@ void jogadaBOT(char tabuleiro[][3], int jogadorVez){
 
 		for(int j = 0; j < 3; j++){
 
-			if(tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O'){
+			if(verificarPosicaoVazia(tabuleiro, i, j)){
 
 				char aux = tabuleiro[i][j];
-				atualizarTabuleiro(i, j, 1, tabuleiro);
+				preencherTabuleiro(i, j, 1, tabuleiro);
 				resultado = minimax(tabuleiro, 0, 0);
 				tabuleiro[i][j] = aux;
 
@@ -212,7 +212,7 @@ void jogadaBOT(char tabuleiro[][3], int jogadorVez){
 
 	}
 
-	atualizarTabuleiro(melhorI, melhorJ, jogadorVez, tabuleiro);
+	preencherTabuleiro(melhorI, melhorJ, 1, tabuleiro);
 		
 }
 
@@ -231,13 +231,12 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 			
 			for(int j = 0; j < 3; j++){
 				
-				if(tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O'){
+				if(verificarPosicaoVazia(tabuleiro, i, j)){
 
 					char aux = tabuleiro[i][j];
-					atualizarTabuleiro(i, j, 1, tabuleiro);
+					preencherTabuleiro(i, j, 1, tabuleiro);
 					resultado = minimax(tabuleiro, altura + 1, 0);
 					tabuleiro[i][j] = aux;
-
 					melhorResultado = max(resultado, melhorResultado);
 						
 				}
@@ -258,13 +257,12 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 			
 			for(int j = 0; j < 3; j++){
 				
-				if(tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O'){
+				if(verificarPosicaoVazia(tabuleiro, i, j)){
 
 					char aux = tabuleiro[i][j];
-					atualizarTabuleiro(i, j, 2, tabuleiro);
+					preencherTabuleiro(i, j, 2, tabuleiro);
 					resultado = minimax(tabuleiro, altura + 1, 1);
 					tabuleiro[i][j] = aux;
-
 					melhorResultado = min(resultado, melhorResultado);
 						
 				}
@@ -320,5 +318,11 @@ int verificarEmpate(char tabuleiro[][3]){
 		return 1;
 
 	return 0;
+
+}
+
+int verificarPosicaoVazia(char tabuleiro[][3], int i, int j){
+
+	return tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O';	
 
 }
