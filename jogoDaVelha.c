@@ -54,12 +54,13 @@ void iniciarJogo(){
 
 void imprimirTabuleiro(char tabuleiro[][3]){
 
-	printf("\n\t  JOGO DA VELHA\n\nMinimax tree BOT: X\nVoce: O\n\n\t"
-		  "  %c  |  %c  |  %c   \n"
+	printf("\n\t  \033[0;31mJOGO DA VELHA\n\n\033[0;35m"
+		  "Minimax tree BOT: X\nVoce: O\n\n\t\033[0;33m"
+		  "  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m   \n"
 		  "\t-----|-----|-----\n\t"
-		  "  %c  |  %c  |  %c   \n"
+		  "  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m   \n"
 		  "\t-----|-----|-----\n\t"
-		  "  %c  |  %c  |  %c   \n",
+		  "  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m  |  \033[0;31m%c\033[0;33m   \n",
 		  tabuleiro[0][0], tabuleiro[0][1], tabuleiro[0][2],
 		  tabuleiro[1][0], tabuleiro[1][1], tabuleiro[1][2],
 		  tabuleiro[2][0], tabuleiro[2][1], tabuleiro[2][2]);
