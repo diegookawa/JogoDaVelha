@@ -158,7 +158,7 @@ int verificarVitoria(char tabuleiro[][3]){
 
 int imprimirVitoria(int vencedor){
 
-	vencedor == -1 ? printf("\nVencedor: Jogador 1\n") : printf("\nVencedor: Minimax tree BOT\n");
+	vencedor == -1 ? printf("\nParabens, voce fez o impossivel\n") : printf("\nVencedor: Minimax tree BOT\n");
 
 }
 
@@ -222,6 +222,9 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 	
 	if(resultado != 0)
 		return resultado;
+
+	if(verificarTabuleiroCheio(tabuleiro))
+		return 0;
 
 	if(maximizando){
 
@@ -305,24 +308,19 @@ void trocarJogador(int *jogador){
 
 }
 
-int verificarEmpate(char tabuleiro[][3]){
-
-	int aux = 0;
-
-	for(int i = 0; i < 3; i++)
-		for(int j = 0; j < 3; j++)
-			if(tabuleiro[i][j] == 'X' || tabuleiro[i][j] == 'O')
-				aux++;
-
-	if(aux == 9)
-		return 1;
-
-	return 0;
-
-}
-
 int verificarPosicaoVazia(char tabuleiro[][3], int i, int j){
 
 	return tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O';	
+
+}
+
+int verificarTabuleiroCheio(char tabuleiro[][3]){
+
+	for(int i = 0; i < 3; i++)
+		for(int j = 0; j < 3; j++)
+			if(verificarPosicaoVazia(tabuleiro, i, j))
+				return 0;
+
+	return 1;
 
 }
