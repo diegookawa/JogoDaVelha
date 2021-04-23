@@ -90,34 +90,12 @@ void realizarJogada(char tabuleiro[][3]){
 		realizarJogada(tabuleiro);
 
 	else {
-
-		if(opcao == 1)
-			preencherTabuleiro(0, 0, 2, tabuleiro);
-	
-		else if(opcao == 2)
-			preencherTabuleiro(0, 1, 2, tabuleiro);
-
-		else if(opcao == 3)
-			preencherTabuleiro(0, 2, 2, tabuleiro);
-
-		else if(opcao == 4)
-			preencherTabuleiro(1, 0, 2, tabuleiro);
-
-		else if(opcao == 5)
-			preencherTabuleiro(1, 1, 2, tabuleiro);
-
-		else if(opcao == 6)
-			preencherTabuleiro(1, 2, 2, tabuleiro);
-
-		else if(opcao == 7)
-			preencherTabuleiro(2, 0, 2, tabuleiro);
-
-		else if(opcao == 8)
-			preencherTabuleiro(2, 1, 2, tabuleiro);
-
-		else if(opcao == 9)
-			preencherTabuleiro(2, 2, 2, tabuleiro);
-
+		if (opcao / 4 == 0)
+			preencherTabuleiro(0, opcao - 1, 2, tabuleiro);
+		else if (opcao / 7 == 0)
+			preencherTabuleiro(1, opcao - 4, 2, tabuleiro);
+		else if(opcao / 10 == 0)
+			preencherTabuleiro(2, opcao - 7, 2, tabuleiro);
 	}
 
 }
