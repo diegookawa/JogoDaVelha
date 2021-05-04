@@ -3,23 +3,29 @@
 #include <limits.h>
 #include <unistd.h>
 
+/*	Função Principal */
 int main(){
 	
 	iniciarJogo();
-
+	
 	return 0;
 
 }
 
+/*	Função Iniciar
+ *	Inicia o processo do Jogo
+ *	Efetua todo o processo de looping, até o jogo ser terminado.
+ */
 void iniciarJogo(){
 
 	char tabuleiro[3][3] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	int jogadorVez = 1, numRodadas = 0, vencedor;
 
+	/*	Limpa a linha de comando onde será mostrada a matriz do Jogo	*/
 	system("clear");
-
+	
+	/* Efetua o looping até que um vencedor exista ou um empate */
 	do {
-		
 		imprimirTabuleiro(tabuleiro);
 
 		if(jogadorVez == 1){
@@ -41,9 +47,10 @@ void iniciarJogo(){
 		system("clear");
 
 	} while(vencedor == 0 && numRodadas < 9);
-
+	/* Imprime o tabuleiro final */
 	imprimirTabuleiro(tabuleiro);
 
+	/* Caso não haja vencedor declara o empate, se não parabeniza o vencedor */
 	if(vencedor == 0)
 		printf("\nO jogo deu empate\n");
 
@@ -52,6 +59,9 @@ void iniciarJogo(){
 		
 }
 
+/*	Função Imprimir
+ *	Efetua a impressão da matriz do Jogo	
+ */
 void imprimirTabuleiro(char tabuleiro[][3]){
 
 	printf("\n\t  \033[0;31mJOGO DA VELHA\n\n\033[0;32m"
@@ -67,6 +77,9 @@ void imprimirTabuleiro(char tabuleiro[][3]){
 	
 }
 
+/*	Função Preencher
+ *	Preenche a matriz de acordo com qual jogador efetuou a jogada
+ */
 void preencherTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]){
 
 	if(jogadorVez == 1)
@@ -77,6 +90,9 @@ void preencherTabuleiro(int i, int j, int jogadorVez, char tabuleiro[][3]){
 
 }
 
+/*	Função Realizar Jogada
+ *	Efetua a jogada de acordo com qual jogador, verificando a disponibilidade da posição selecionada
+ */
 void realizarJogada(char tabuleiro[][3]){
 
 	int opcao, opcaoValida;
@@ -100,46 +116,35 @@ void realizarJogada(char tabuleiro[][3]){
 
 }
 
+/*	Função Verificar Vitória
+ *	Efetua verificação das possibilidades de vitória e retorna o vencedor
+ *	retorna -1 para 'O' e 1 para 'X'	
+ */
 int verificarVitoria(char tabuleiro[][3]){
-
-	for(int i = 0; i < 3; i++)
-		if(tabuleiro[i][0] == 'X' && tabuleiro[i][1] == 'X' && tabuleiro[i][2] == 'X')
-			return 1;
-
-	for(int i = 0; i < 3; i++)
-		if(tabuleiro[0][i] == 'X' && tabuleiro[1][i] == 'X' && tabuleiro[2][i] == 'X')
-			return 1;
-
-	if(tabuleiro[0][0] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][2]== 'X')
-		return 1;
-
-	if(tabuleiro[0][2] == 'X' && tabuleiro[1][1] == 'X' && tabuleiro[2][0]== 'X')
-		return 1;
-
-	for(int i = 0; i < 3; i++)
-		if(tabuleiro[i][0] == 'O' && tabuleiro[i][1] == 'O' && tabuleiro[i][2] == 'O')
-			return -1;
-
-	for(int i = 0; i < 3; i++)
-		if(tabuleiro[0][i] == 'O' && tabuleiro[1][i] == 'O' && tabuleiro[2][i] == 'O')
-			return -1;
-
-	if(tabuleiro[0][0] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][2]== 'O')
-		return -1;
-
-	if(tabuleiro[0][2] == 'O' && tabuleiro[1][1] == 'O' && tabuleiro[2][0]== 'O')
-		return -1;
-
+	
+	for(int i = 0; i < 3; i++){
+		if(tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1]  == tabuleiro[i][2])
+			return tabuleiro[i][0] == 'X' ? 1 : -1;
+		if(tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i]  == tabuleiro[2][i])
+			return tabuleiro[0][i] == 'X' ? 1 : -1;
+	}
+	if(tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1]  == tabuleiro[2][2] ||
+	   tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1]  == tabuleiro[2][0])
+			return tabuleiro[1][1] == 'X' ? 1 : -1;
 	return 0;
 
 }
 
-int imprimirVitoria(int vencedor){
-
+/*	Função Imprimir Vitória
+ *	Imprime a mensagem para o jogador vitorioso
+ */
+void imprimirVitoria(int vencedor){
 	vencedor == -1 ? printf("\nParabens, voce fez o impossivel\n") : printf("\nVencedor: Minimax tree BOT\n");
-
 }
 
+/*	Função Verificar Jogada
+ *	Verifica se a jogada é valida, caso não pede novamente ao jogador para que faça a jogada
+ */
 int verificarJogada(int opcao, char tabuleiro[][3]){
 
 	int opcaoValida = 0;
@@ -149,7 +154,6 @@ int verificarJogada(int opcao, char tabuleiro[][3]){
 			if(opcao == tabuleiro[i][j] - '0')
 				opcaoValida++;
 
-	
 	if(!opcaoValida){
 		printf("\nOPCAO INVALIDA...");
 		getchar();
@@ -159,6 +163,9 @@ int verificarJogada(int opcao, char tabuleiro[][3]){
 
 }
 
+/*	Função Jogada Bot
+ *	Efetua a jogada do BOT enquanto chama a função Minimax para calcular a jogada
+ */
 void jogadaBOT(char tabuleiro[][3], int jogadorVez){
 
 	int resultado, melhorResultado, melhorI, melhorJ;
@@ -193,7 +200,10 @@ void jogadaBOT(char tabuleiro[][3], int jogadorVez){
 	preencherTabuleiro(melhorI, melhorJ, 1, tabuleiro);
 		
 }
-
+/*	Função Minimax
+ *	Efetua o calculo da melhor jogada possível
+ *	Retorna a melhor posição
+ */
 int minimax(char tabuleiro[][3], int altura, int maximizando){
 
 	int resultado = verificarVitoria(tabuleiro);
@@ -258,6 +268,9 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 
 }
 
+/*	Função Min
+ *	Retorna o menor entre dois inteiros
+ */
 int min(int a, int b){
 
 	if(a > b)
@@ -267,6 +280,9 @@ int min(int a, int b){
 
 }
 
+/*	Função Max
+ *	Retorna o maior entre dois inteiros
+ */
 int max(int a, int b){
 
 	if(a > b)
@@ -276,6 +292,9 @@ int max(int a, int b){
 
 }
 
+/*	Função Trocar Jogador
+ *	Troca qual jogador está ativo
+ */
 void trocarJogador(int *jogador){
 
 	if((*jogador) == 1)
@@ -286,6 +305,9 @@ void trocarJogador(int *jogador){
 
 }
 
+/*	Função Min
+ *	Retorna o menor entre dois inteiros
+ */
 int verificarPosicaoVazia(char tabuleiro[][3], int i, int j){
 
 	return tabuleiro[i][j] != 'X' && tabuleiro[i][j] != 'O';	

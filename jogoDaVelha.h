@@ -10,7 +10,7 @@ void realizarJogada(char tabuleiro[][3]);
 
 int verificarVitoria(char tabuleiro[][3]);
 
-int imprimirVitoria(int vencedor);
+void imprimirVitoria(int vencedor);
 
 int verificarJogada(int opcao, char tabuleiro[][3]);
 
