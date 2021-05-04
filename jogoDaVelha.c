@@ -3,7 +3,9 @@
 #include <limits.h>
 #include <unistd.h>
 
-/*	Função Principal */
+/*	Função Principal
+ *	Executa a função Iniciar
+ */
 int main(){
 	
 	iniciarJogo();
@@ -305,8 +307,8 @@ void trocarJogador(int *jogador){
 
 }
 
-/*	Função Min
- *	Retorna o menor entre dois inteiros
+/*	Função Verificar Posição Vazia
+ *	Retorna 0 caso esteja vazia e 1 caso não
  */
 int verificarPosicaoVazia(char tabuleiro[][3], int i, int j){
 
@@ -314,6 +316,9 @@ int verificarPosicaoVazia(char tabuleiro[][3], int i, int j){
 
 }
 
+/*	Função Verificar Tabuleiro Cheio
+ *	Retorna 0 caso esteja cheio e 1 caso não
+ */
 int verificarTabuleiroCheio(char tabuleiro[][3]){
 
 	for(int i = 0; i < 3; i++)
