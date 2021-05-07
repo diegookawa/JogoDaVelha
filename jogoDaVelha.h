@@ -16,7 +16,7 @@ int verificarJogada(int opcao, char tabuleiro[][3]);
 
 void jogadaBOT(char tabuleiro[][3], int jogadorVez);
 
-int minimax(char tabuleiro[][3], int altura, int maximizando);
+int minimax(char tabuleiro[][3], int maximizando);
 
 int min(int a, int b);
 

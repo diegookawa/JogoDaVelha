@@ -182,7 +182,7 @@ void jogadaBOT(char tabuleiro[][3], int jogadorVez){
 
 				char aux = tabuleiro[i][j];
 				preencherTabuleiro(i, j, 1, tabuleiro);
-				resultado = minimax(tabuleiro, 0, 0);
+				resultado = minimax(tabuleiro, 0);
 				tabuleiro[i][j] = aux;
 
 				if(resultado > melhorResultado){
@@ -206,7 +206,7 @@ void jogadaBOT(char tabuleiro[][3], int jogadorVez){
  *	Efetua o calculo da melhor jogada possível
  *	Retorna a melhor posição
  */
-int minimax(char tabuleiro[][3], int altura, int maximizando){
+int minimax(char tabuleiro[][3], int maximizando){
 
 	int resultado = verificarVitoria(tabuleiro);
 	
@@ -228,7 +228,7 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 
 					char aux = tabuleiro[i][j];
 					preencherTabuleiro(i, j, 1, tabuleiro);
-					resultado = minimax(tabuleiro, altura + 1, 0);
+					resultado = minimax(tabuleiro, 0);
 					tabuleiro[i][j] = aux;
 					melhorResultado = max(resultado, melhorResultado);
 						
@@ -254,7 +254,7 @@ int minimax(char tabuleiro[][3], int altura, int maximizando){
 
 					char aux = tabuleiro[i][j];
 					preencherTabuleiro(i, j, 2, tabuleiro);
-					resultado = minimax(tabuleiro, altura + 1, 1);
+					resultado = minimax(tabuleiro, 1);
 					tabuleiro[i][j] = aux;
 					melhorResultado = min(resultado, melhorResultado);
 						
